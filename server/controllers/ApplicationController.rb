@@ -10,6 +10,16 @@ class ApplicationController < Sinatra::Base
     	content_type :json
 
     	path = request.fullpath.split("?")[0]
+    	if ['/user/login','/user/register', '/games'].include?(path) || request.request_method == 'OPTIONS'
+    		pass
+    	end
+    	token = params[:token]
+    	user = User.find_by(token: token)
+    	if user
+    		pass
+    	else
+    		halt 403
+    	end
 
     end
 end
