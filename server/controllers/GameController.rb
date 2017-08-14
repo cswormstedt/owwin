@@ -22,6 +22,16 @@ class GameController < ApplicationController
 
 	end
 
+	get '/:hero' do
+
+		hero = params[:hero]
+		token = params[:token]
+		user = User.where(token: token)
+		game = Game.find(hero)
+		game.to_json
+
+	end
+
 	post '/' do
 		token = params[:token]
 		user = User.where(token: token)
